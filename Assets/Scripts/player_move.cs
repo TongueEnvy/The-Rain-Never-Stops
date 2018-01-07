@@ -83,7 +83,7 @@ public class player_move : MonoBehaviour {
     // Update is called once per frame
     void Update () {
 
-        body.velocity = new Vector2(Input.GetAxisRaw("Horizontal") * moveSpeed, body.velocity.y);
+        body.velocity = (new Vector2 (Input.GetAxisRaw("Horizontal") * moveSpeed, body.velocity.y));
 
         if (grounded == true && Input.GetButtonDown("Jump"))
         {
