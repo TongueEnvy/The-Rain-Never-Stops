@@ -5,6 +5,8 @@ using UnityEngine;
 public class scr_theFlood : MonoBehaviour {
 
     public float riseSpeed;
+    public GameObject player;
+    public float playerPosMod;
 
 	// Use this for initialization
 	void Start () {
@@ -14,8 +16,7 @@ public class scr_theFlood : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        transform.position = new Vector2 (transform.position.x, transform.position.y + riseSpeed);
-        riseSpeed += .000015f;
+        transform.position = new Vector2 (transform.position.x, transform.position.y + (riseSpeed + (player.transform.position.y * playerPosMod)));
 
 	}
 }
