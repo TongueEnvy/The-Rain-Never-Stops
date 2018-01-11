@@ -39,7 +39,7 @@ public class RoomManager: MonoBehaviour {
 					new Vector2(0, room.transform.position.y - roomSize);
 			}
 			
-			rng = Random.Range(8, potentialRooms.Count);
+			rng = Random.Range(0, potentialRooms.Count);
 			//Instantiate(prefab, transform); <- Slightly better structure <-
 			selectedRoom = Instantiate<GameObject>(potentialRooms[rng], null);
 			selectedRoom.transform.position = new Vector2(0, 0);
