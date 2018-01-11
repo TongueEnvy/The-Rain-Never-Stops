@@ -40,7 +40,7 @@ public class RoomManager: MonoBehaviour {
 			}
 			
 			rng = Random.Range(8, potentialRooms.Count);
-			//Instantiate(prefab, transform);
+			//Instantiate(prefab, transform); <- Slightly better structure <-
 			selectedRoom = Instantiate<GameObject>(potentialRooms[rng], null);
 			selectedRoom.transform.position = new Vector2(0, 0);
 			loadedRooms.Enqueue(selectedRoom);
@@ -49,14 +49,15 @@ public class RoomManager: MonoBehaviour {
 				GameObject room = loadedRooms.Dequeue();
 				Destroy(room.gameObject);
 				//floodPercentage = 0f;
-				//floodPosition = 0 (bottom of queue);
+				//floodPosition = 0 (bottom of queue); vv Same line vv
+				//flood.transform.position = loadedRooms.Peek().transform.position;
 			}
 		}
 		
 		//This conditional is where the flood has engulfed a floor.
 		else if(true == false) {
-			//loadedRooms.Peek().destroy(self);
-			loadedRooms.Dequeue();
+			GameObject room = loadedRooms.Dequeue();
+			Destroy(room.gameObject);
 			//floodPercentage = 0f;
 		}
 	}
