@@ -1,7 +1,7 @@
 ﻿/**************************
 ** RoomManager.cs
 ** Chase McWhirt
-** January 10th, 2018
+** January 11th, 2018
 ***************************/
 using System.Collections;
 using System.Collections.Generic;
@@ -9,13 +9,11 @@ using UnityEngine;
 
 public class RoomManager: MonoBehaviour {
 	public const float roomSize	=	12f;
-	//public float riseSpeed	=	0.03f;
 	public List<GameObject> potentialRooms;
 	public GameObject startRoom;
 	public GameObject player;
 	public GameObject flood;
 	public int maxRoomBuffer	=	5;
-	//public static RoomManager Instance { get; set; }
 	public const float drownedRoomTime	=	5f;
 	
 	private GameObject selectedRoom;
@@ -33,21 +31,16 @@ public class RoomManager: MonoBehaviour {
 		roomDrownedPercent = -25f;
 	}
 	
-	void Update() {
-		//Flood increase rate 0 to 100
-		//At a speed of 0.03 meters per frame,
-		//	the flood rises from one floor to the next
-		//	in 400 frames. There is an extra 100 frames
-		//	at the start. Thus, every frame, it should
-		//	cover 0.25% more of the flood.
-		Debug.Log(1.0f / Time.deltaTime);
+	void FixedUpdate() {
+		//Flood's original speed was 400 frames.
+		//At 50FPS (which it's now at) flood's time was 8 seconds.
+		//Floods time is now 5 seconds.
 		roomDrownedPercent += (Time.deltaTime * 100f / drownedRoomTime);
 		floodY = ((roomSize * roomDrownedPercent / 100f) - roomSize);
-		Debug.Log(floodY);
 		floodPosition.Set(0f, floodY, 0f);
-		Debug.Log(floodPosition.y);
 		flood.transform.position = floodPosition;
 
+		//If the player has reached the top of the current room:
 		if(player.transform.position.y >=
 			(((loadedRooms.Count - 1) * roomSize) - 2f))
 		{
@@ -55,43 +48,36 @@ public class RoomManager: MonoBehaviour {
 			//Instantiate(prefab, transform); <- Slightly better structure <-
 			selectedRoom = Instantiate<GameObject>(potentialRooms[rng], null);
 			selectedRoom.transform.position =
-				new Vector2(0, (loadedRooms.Count * 12f));
+				new Vector2(0f, (loadedRooms.Count * 12f));
 			loadedRooms.Enqueue(selectedRoom);
-
-			if(loadedRooms.Count == (maxRoomBuffer + 3)) {
-				GameObject drownedRoom = loadedRooms.Dequeue();
-				Destroy(drownedRoom.gameObject);
-				
-				player.transform.position =
-					new Vector2(player.transform.position.x,
-						player.transform.position.y - roomSize);
 			
-				foreach(GameObject room in loadedRooms) {
-					room.transform.position =
-						new Vector2(0, room.transform.position.y - roomSize);
-				}
-				
-				roomDrownedPercent = 0f;
-				flood.transform.position = floodReset;
+			//Hard flood catch up mechanic. Flood is always
+			//	maxRoomBuffer away.
+			if(loadedRooms.Count == (maxRoomBuffer + 3)) {
+				LevelShift();
 			}
 		}
 		
 		//This conditional is where the flood has engulfed a floor.
 		else if(roomDrownedPercent >= 100f) {
-			GameObject drownedRoom = loadedRooms.Dequeue();
-			Destroy(drownedRoom.gameObject);
-
-			player.transform.position =
-				new Vector2(player.transform.position.x,
-				player.transform.position.y - roomSize);
-			
-			foreach(GameObject room in loadedRooms) {
-				room.transform.position =
-					new Vector2(0, room.transform.position.y - roomSize);
-			}
-				
-			roomDrownedPercent = 0f;
-			flood.transform.position = floodReset;
+			LevelShift();
 		}
+	}
+	
+	public void LevelShift() {
+		GameObject drownedRoom = loadedRooms.Dequeue();
+		Destroy(drownedRoom.gameObject);
+
+		player.transform.position =
+			new Vector2(player.transform.position.x,
+			player.transform.position.y - roomSize);
+
+		foreach(GameObject room in loadedRooms) {
+			room.transform.position =
+				new Vector2(0, room.transform.position.y - roomSize);
+		}
+				
+		roomDrownedPercent = 0f;
+		flood.transform.position = floodReset;
 	}
 }
