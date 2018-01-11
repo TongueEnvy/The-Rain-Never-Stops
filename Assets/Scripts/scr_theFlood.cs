@@ -7,18 +7,14 @@ public class scr_theFlood: MonoBehaviour {
     public GameObject player;
     public float playerPosMod;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
 	// Update is called once per frame
 	void Update () {
-        transform.position = new Vector2
-			(transform.position.x,
-			transform.position.y + (riseSpeed +
-			//Very soft catch up mechanic.
-				(player.transform.position.y * playerPosMod))
+        transform.position =
+			new Vector2(transform.position.x,
+				transform.position.y + (riseSpeed +
+				//Very soft catch up mechanic.
+					(player.transform.position.y * playerPosMod)
+				)
 			);
 	}
 }
