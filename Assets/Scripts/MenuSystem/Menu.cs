@@ -14,7 +14,6 @@ public abstract class Menu<T>: Menu where T: Menu<T>
 
     protected virtual void Awake() {
         Instance = (T)this;
-		//Debug.Log("Am I alive?");
     }
 
     protected virtual void OnDestroy() {
@@ -23,17 +22,14 @@ public abstract class Menu<T>: Menu where T: Menu<T>
 
 	protected static void Open() {
 		if (Instance == null) {
-			//Debug.Log("Instance == null in Menu's Open function...");
-			//I think this is only supposed to be called when menu first
-			//	launchs?
 			MenuManager.Instance.CreateInstance<T>();
 		}
 		
 		else {
 			Instance.gameObject.SetActive(true);
 		}
-		//	Instance.gameObject.SetActive(true);
-			MenuManager.Instance.OpenMenu(Instance);
+
+		MenuManager.Instance.OpenMenu(Instance);
 	}
 
 	protected static void Close() {
