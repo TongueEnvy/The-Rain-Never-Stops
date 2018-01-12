@@ -14,6 +14,7 @@ public class player_move: MonoBehaviour {
 	public float moveSpeed;
 	public AudioSource jump;
 	public AudioSource land;
+	//public static player_move Instance { get; set; }
 	
 	private Rigidbody2D body;
 	private bool grounded;
@@ -29,9 +30,14 @@ public class player_move: MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision) {
         grounded = true;
         isJumping = false;
-        for(int i = 0; i < globNumber; i++) {
+        
+		if(collision.gameObject.tag == "Hazard") {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+		
+		for(int i = 0; i < globNumber; i++) {
             var newGlob = Instantiate<GameObject>(slimeGlob, gameObject.transform);
-            newGlob.transform.parent = null;
+			newGlob.transform.parent = transform;
             newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
 				Random.Range(-globSpeed, globSpeed),
 				Random.Range(0, globSpeed)
@@ -71,9 +77,10 @@ public class player_move: MonoBehaviour {
             jumpCounter = jumpTimer;
             
 			for (int i = 0; i < globNumber; i++) {
-                var newGlob =
-					Instantiate<GameObject>(slimeGlob, gameObject.transform);
-                newGlob.transform.parent = null;
+                var newGlob = Instantiate<GameObject>(
+					slimeGlob, gameObject.transform
+				);
+                newGlob.transform.parent = transform;
                 newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
 					Random.Range(-globSpeed, globSpeed),
 					Random.Range(0, globSpeed)
