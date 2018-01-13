@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class player_move: MonoBehaviour {
     public Camera cam;
+    public float camSpeed;
+    public bool playerIsClimbing;
 	public GameObject slimeGlob;
 	public int globNumber;
 	public float globSpeed;
@@ -14,7 +17,7 @@ public class player_move: MonoBehaviour {
 	public float moveSpeed;
 	public AudioSource jump;
 	public AudioSource land;
-	//public static player_move Instance { get; set; }
+    public GameObject theFlood;
 	
 	private Rigidbody2D body;
 	private bool grounded;
@@ -25,6 +28,7 @@ public class player_move: MonoBehaviour {
     void Start () {
         body = gameObject.GetComponent<Rigidbody2D>();
         isJumping = false;
+        playerIsClimbing = false;
 	}
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -105,6 +109,28 @@ public class player_move: MonoBehaviour {
 			);
         }
 
-        cam.transform.position = new Vector3(0, transform.position.y, -10);
+        if(playerIsClimbing == false) {
+            cam.transform.position =
+				Vector3.MoveTowards(
+					cam.transform.position, 
+					new Vector3(
+						transform.position.x,
+						transform.position.y, -10
+					),
+					camSpeed
+				);
+        }
+		
+        else {
+            cam.transform.position =
+				Vector3.MoveTowards(
+					cam.transform.position,
+					new Vector3(0, transform.position.y, -10),
+					camSpeed
+				);
+        }
+        
+        theFlood.transform.position =
+			new Vector2(transform.position.x, theFlood.transform.position.y);
     }
 }
