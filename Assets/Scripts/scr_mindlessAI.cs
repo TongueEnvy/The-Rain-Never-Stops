@@ -9,7 +9,6 @@ public class scr_mindlessAI: MonoBehaviour {
 
 	private GameObject target;
 	private float shotCounter;
-	private bool canShoot;
 	private float distanceFromTarget;
 	
 	// Use this for initialization
@@ -33,7 +32,8 @@ public class scr_mindlessAI: MonoBehaviour {
 				newBolt.transform.parent = transform.parent;
 				newBolt.transform.LookAt(target.transform.position);
 				newBolt.transform.right = newBolt.transform.forward;
-				newBolt.GetComponent<Rigidbody2D>().velocity = newBolt.transform.right * 2;
+				newBolt.GetComponent<Rigidbody2D>().velocity = 
+					newBolt.transform.right * 2;
 
 				shotCounter = shotTimer;
             }
