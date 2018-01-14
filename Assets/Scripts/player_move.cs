@@ -86,23 +86,6 @@ public class player_move: MonoBehaviour {
             }
         }
 
-        jumpCounter -= 1;
-
-        if(jumpCounter < 0) {
-            jumpCounter = 0;
-        }
-
-        if(jumpCounter == 0 || Input.GetButtonUp("Jump")) {
-            isJumping = false;
-        }
-
-        if(isJumping == true) {
-            body.velocity = new Vector2(
-				body.velocity.x,
-				body.velocity.y + jumpAcceleration
-			);
-        }
-
         if (playerIsClimbing == false)
         {
 
@@ -117,5 +100,30 @@ public class player_move: MonoBehaviour {
         }
         
         theFlood.transform.position = new Vector2(transform.position.x, theFlood.transform.position.y);
+    }
+
+    private void FixedUpdate()
+    {
+
+        jumpCounter -= 1;
+
+        if (jumpCounter < 0)
+        {
+            jumpCounter = 0;
+        }
+
+        if (jumpCounter == 0 || Input.GetButtonUp("Jump"))
+        {
+            isJumping = false;
+        }
+
+        if (isJumping == true)
+        {
+            body.velocity = new Vector2(
+                body.velocity.x,
+                body.velocity.y + jumpAcceleration
+            );
+        }
+
     }
 }
