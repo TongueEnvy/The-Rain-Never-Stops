@@ -8,12 +8,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomManager: MonoBehaviour {
-	public const float roomSize	=	12f;
+	public const float roomSize			=	12f;
 	public List<GameObject> potentialRooms;
 	public GameObject startRoom;
 	public GameObject player;
 	public GameObject flood;
-	public int maxRoomBuffer	=	5;
+	public int maxRoomBuffer			=	5;
 	public const float drownedRoomTime	=	5f;
 	
 	private GameObject selectedRoom;
@@ -35,13 +35,10 @@ public class RoomManager: MonoBehaviour {
         //Flood's original speed was 400 frames.
         //At 50FPS (which it's now at) flood's time was 8 seconds.
         //Floods time is now 5 seconds.
-        if (player.GetComponent<player_move>().playerIsClimbing == true)
-        {
-            roomDrownedPercent += (Time.deltaTime * 100f / drownedRoomTime);
-            floodY = ((roomSize * roomDrownedPercent / 100f) - roomSize);
-            floodPosition.Set(0f, floodY, 0f);
-            flood.transform.position = floodPosition;
-        }
+        roomDrownedPercent += (Time.deltaTime * 100f / drownedRoomTime);
+        floodY = ((roomSize * roomDrownedPercent / 100f) - roomSize);
+        floodPosition.Set(0f, floodY, 0f);
+        flood.transform.position = floodPosition;
 
 		//If the player has reached the top of the current room:
 		if(player.transform.position.y >=
@@ -72,8 +69,10 @@ public class RoomManager: MonoBehaviour {
 		Destroy(drownedRoom.gameObject);
 
 		player.transform.position =
-			new Vector2(player.transform.position.x,
-			player.transform.position.y - roomSize);
+			new Vector2(
+				player.transform.position.x,
+				player.transform.position.y - roomSize
+			);
 
 		foreach(GameObject room in loadedRooms) {
 			room.transform.position =
