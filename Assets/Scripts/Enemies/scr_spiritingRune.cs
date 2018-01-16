@@ -6,19 +6,31 @@ public class scr_spiritingRune : MonoBehaviour {
 
     public GameObject weilder;
     public float launchForce;
+    public bool locked;
 
     [HideInInspector] public Vector2 launchDirection;
 
+    private float lockedAngle;
+
 	// Use this for initialization
 	void Start () {
-		
+
+        lockedAngle = transform.eulerAngles.z;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        launchDirection = transform.position - weilder.transform.position;
+        launchDirection = transform.up;
         launchDirection.Normalize();
+
+        if(locked == true)
+        {
+
+            transform.eulerAngles = new Vector3(0, 0, lockedAngle);
+
+        }
 
 	}
 
