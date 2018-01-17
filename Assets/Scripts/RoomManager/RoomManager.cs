@@ -14,7 +14,7 @@ public class RoomManager: MonoBehaviour {
 	public GameObject player;
 	public GameObject flood;
 	public int maxRoomBuffer			=	5;
-	public const float drownedRoomTime	=	5f;
+	public float drownedRoomTime		=	5f;
 	
 	private GameObject selectedRoom;
 	private Queue<GameObject> loadedRooms;
@@ -23,12 +23,15 @@ public class RoomManager: MonoBehaviour {
 	private float floodY				=	0f;
 	private Vector3 floodReset			=	new Vector3(0f, (0f - roomSize), 0f);
 	private Vector3 floodPosition		=	new Vector3(0f, -15f, 0f);
+	private float metersTravelled		=	0f;
+	private float previousYHeight		=	0f;
 	
     void Start() {
 		Random.InitState(System.Environment.TickCount);
 		loadedRooms = new Queue<GameObject>();
         loadedRooms.Enqueue(startRoom);
 		roomDrownedPercent = -25f;
+		previousYHeight = player.transform.position.y;
 	}
 	
 	void FixedUpdate() {
@@ -39,6 +42,11 @@ public class RoomManager: MonoBehaviour {
         floodY = ((roomSize * roomDrownedPercent / 100f) - roomSize);
         floodPosition.Set(0f, floodY, 0f);
         flood.transform.position = floodPosition;
+		
+		metersTravelled += player.transform.position.y - previousYHeight;
+		previousYHeight = player.transform.position.y;
+		//Debug.Log("Meters Travelled: ");
+		Debug.Log(metersTravelled);
 
 		//If the player has reached the top of the current room:
 		if(player.transform.position.y >=
@@ -65,6 +73,9 @@ public class RoomManager: MonoBehaviour {
 	}
 	
 	public void LevelShift() {
+		roomDrownedPercent = 0f;
+		flood.transform.position = floodReset;
+	
 		GameObject drownedRoom = loadedRooms.Dequeue();
 		Destroy(drownedRoom.gameObject);
 
@@ -73,13 +84,12 @@ public class RoomManager: MonoBehaviour {
 				player.transform.position.x,
 				player.transform.position.y - roomSize
 			);
+			
+		previousYHeight -= roomSize;
 
 		foreach(GameObject room in loadedRooms) {
 			room.transform.position =
 				new Vector2(0, room.transform.position.y - roomSize);
 		}
-				
-		roomDrownedPercent = 0f;
-		flood.transform.position = floodReset;
 	}
 }

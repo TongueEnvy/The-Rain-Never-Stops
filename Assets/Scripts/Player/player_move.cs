@@ -22,6 +22,7 @@ public class player_move: MonoBehaviour {
 	public AudioSource jump;
 	public AudioSource land;
     public GameObject theFlood;
+	public GameObject hudMenu;
 	
 	private Rigidbody2D body;
 	private bool grounded;
