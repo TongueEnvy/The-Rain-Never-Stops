@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 
 //PlayerCameraControl inherits from MonoBehaviour (things like Update())
 public class PlayerCollisionControl: MonoBehaviour {
@@ -45,4 +45,4 @@ public class PlayerCollisionControl: MonoBehaviour {
 
         hasBeenFlung = false;
     }
-}
+}*/

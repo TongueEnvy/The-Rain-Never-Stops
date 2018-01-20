@@ -3,15 +3,16 @@
 //PlayerCameraControl inherits from MonoBehaviour (things like Update())
 public class PlayerCameraControl: MonoBehaviour {
     public Camera cam;				//The main camera child GameObject.
-    public float camSpeed;			//The speed the camera moves to position.
+    public float camSpeed			=	0.25f;	
 	
-	private bool isPlayerClimbing;	//Variable modified door trigger.
+	private bool isPlayerClimbing	=	false;
+	private bool isCameraSet		=	false;
 	
 	//Allows isPlayerClimbing to be set by other functions without allowing
 	//	it to be set directly in Unity or otherwise.
-	public SetPlayerClimbing(bool newState) { isPlayerClimbing = newState; }
+	public void SetPlayerClimbing(bool newState) { isPlayerClimbing = newState; }
 	
-	//Update is called once per frame
+	//Updates once a frame... Don't use FixedUpdate.
     private void Update() {
 		//If the player hasn't reached the door trigger...
 		if(isPlayerClimbing == false) {
@@ -25,18 +26,23 @@ public class PlayerCameraControl: MonoBehaviour {
 		
 		//Else if player has reached the door trigger, but the camera hasn't
 		//	reached the center of the tower.
-		else if((isPlayerClimbing == true) && (cam.transform.position.x != 0f)) {
+		else if((isPlayerClimbing == true) && (isCameraSet == false)) {
 			cam.transform.position = Vector3.MoveTowards(
 				cam.transform.position,
 				new Vector3(0f, transform.position.y, -10f),
 				camSpeed
 			);
+			
+			//If the camera has reached the position it's moving towards.
+			if(cam.transform.position.x == 0f) {
+				isCameraSet = true;
+			}
 		}
 		
 		//Else the player is climbing and the camera has reached
 		//	the center of the tower.
         else {
-            cam.transform.position = new Vector3(0, transform.position.y, -10);
+			cam.transform.position = new Vector3(0f, transform.position.y, -10);
         }
     }
 }
