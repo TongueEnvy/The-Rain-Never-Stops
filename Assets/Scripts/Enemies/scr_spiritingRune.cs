@@ -27,7 +27,7 @@ public class scr_spiritingRune: MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.tag == "Player") {
-            if(collision.gameObject.GetComponent<player_move>() != null) {
+            if(collision.gameObject.GetComponent<PlayerMove>() != null) {
                 collision.gameObject.GetComponent<PlayerMove>().Fling(
 					launchDirection * launchForce
 				);

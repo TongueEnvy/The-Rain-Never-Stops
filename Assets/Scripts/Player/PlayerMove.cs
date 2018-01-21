@@ -16,6 +16,8 @@ public class PlayerMove: MonoBehaviour {
 	public float jumpAcceleration	=	1f;
 	public int jumpTimer			=	15;
     public int flungTimer			=	15;
+	public GameObject menuManager;
+	public int gameOverMenuIndex;
 	
 	private bool grounded		=	false;	//Player starts midair.
 	private bool isJumping		=	false;	//Player isn't jumping at the start.
@@ -108,9 +110,11 @@ public class PlayerMove: MonoBehaviour {
         isJumping = false;
         
 		if(collision.gameObject.tag == "Hazard") {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-			roomManager.GetComponent<RoomManager>().Restart();
-			//transform.position = new Vector3(0f, 0f, 0f);
+			Time.timeScale = 0f;
+			menuManager.GetComponentInParent<LiteMenuManager>().OpenMenu(
+				gameOverMenuIndex,
+				true
+			);
         }
 		
 		else if(land.isPlaying == false) {
@@ -137,10 +141,11 @@ public class PlayerMove: MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "Hazard") {
-			//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-			roomManager.GetComponent<RoomManager>().Restart();
-			//transform.position = new Vector3(0f, 0f, 0f);
-
+			Time.timeScale = 0f;
+			menuManager.GetComponentInParent<LiteMenuManager>().OpenMenu(
+				gameOverMenuIndex,
+				true
+			);
         }
 
         flungCounter = 0;
