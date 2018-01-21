@@ -116,14 +116,18 @@ public class PlayerMove: MonoBehaviour {
 		else if(land.isPlaying == false) {
             land.Play();
         }
-		
-		for(int i = 0; i < globNumber; i++) {
-            var newGlob = Instantiate<GameObject>(slimeGlob, gameObject.transform);
-			newGlob.transform.parent = transform;
-            newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
-				Random.Range(-globSpeed, globSpeed),
-				Random.Range(0, globSpeed)
-			);
+
+        if (collision.tag == "Ground")
+        {
+            for (int i = 0; i < globNumber; i++)
+            {
+                var newGlob = Instantiate<GameObject>(slimeGlob, gameObject.transform);
+                newGlob.transform.parent = transform;
+                newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
+                    Random.Range(-globSpeed, globSpeed),
+                    Random.Range(0, globSpeed)
+                );
+            }
         }
     }
 
