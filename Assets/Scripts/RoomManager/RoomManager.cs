@@ -100,7 +100,7 @@ public class RoomManager: MonoBehaviour {
 	
 	//To sync with the camera, RoomManager updates game mechanics 50
 	//	times per second.
-	private void FixedUpdate() {
+	private void Update() {
 		//The percentage of flood's progress increases every frame.
         roomDrownedPercent += (Time.deltaTime * 100f / drownedRoomTime);
 		

@@ -13,7 +13,7 @@ public class PlayerCameraControl: MonoBehaviour {
 	public void SetPlayerClimbing(bool newState) { isPlayerClimbing = newState; }
 	
 	//Updates once a frame... Don't use FixedUpdate.
-    private void Update() {
+    private void LateUpdate() {
 		//If the player hasn't reached the door trigger...
 		if(isPlayerClimbing == false) {
 			//Allow camera to follow the player's x access.

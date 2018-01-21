@@ -20,17 +20,20 @@ public class PlayerMove: MonoBehaviour {
 	private bool grounded		=	false;	//Player starts midair.
 	private bool isJumping		=	false;	//Player isn't jumping at the start.
 	private bool hasBeenFlung	=	false;	//Player hasn't been hit yet.
+	private bool jumpPressed	=	false;
+	private bool jumpReleased	=	false;
+	private float horzInput		=	0f;
 	private int jumpCounter;
 	private int flungCounter;
 	private Rigidbody2D body;
 	
 	//Function is called by spiritingRune
 	public void Fling(Vector2 launchVector) {
-		isJumping = false;
-		jumpCounter = 0;
-        hasBeenFlung = true;
-        flungCounter = flungTimer;
-        body.velocity = launchVector;
+		isJumping		=	false;
+		jumpCounter 	=	0;
+        hasBeenFlung	=	true;
+        flungCounter	=	flungTimer;
+        body.velocity	=	launchVector;
 	}
 	
 	// Use this for initialization
@@ -38,7 +41,14 @@ public class PlayerMove: MonoBehaviour {
         body = gameObject.GetComponent<Rigidbody2D>();
 	}
 	
-	// Update is called once per frame
+	//Update is called onced per frame. Critical for input!
+	private void Update() {
+		jumpPressed		=	Input.GetButtonDown("Jump");
+		jumpReleased	=	Input.GetButtonUp("Jump");
+		horzInput		=	Input.GetAxisRaw("Horizontal");
+	}
+	
+	//FixedUpdate is called 50 times per second. Critical for physics!
     private void FixedUpdate() {
         if(hasBeenFlung == true) {
 			if(flungCounter > 0) {
@@ -52,14 +62,14 @@ public class PlayerMove: MonoBehaviour {
 
         else if(hasBeenFlung == false) {
             body.velocity = new Vector2(
-                (Input.GetAxisRaw("Horizontal") * moveSpeed),
+                horzInput * moveSpeed,
                 body.velocity.y
             );
 
 			if(jumpCounter > 0) {
 				jumpCounter--;
 
-				if(jumpCounter == 0 || Input.GetButtonUp("Jump")) {
+				if((jumpCounter == 0) || (jumpReleased == true)) {
 					isJumping = false;
 					jumpCounter = 0;
 				}
@@ -72,7 +82,7 @@ public class PlayerMove: MonoBehaviour {
 				}
 			}
 			
-            else if((grounded == true) && (Input.GetButtonDown("Jump"))) {
+            else if((grounded == true) && (jumpPressed == true)) {
                 body.velocity = new Vector2(body.velocity.x, jumpForce);
                 isJumping = true;
 				grounded = false;
