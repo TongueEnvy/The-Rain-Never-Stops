@@ -15,6 +15,7 @@ public class scr_conspireEmote : MonoBehaviour {
 	void Start () {
 
         mood = 0;
+        player = GameObject.Find("playerHead");
 
 	}
 

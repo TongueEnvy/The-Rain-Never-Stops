@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class scr_rotate: MonoBehaviour {
     public float rotSpeed;
-	
-	// Update is called once per frame
-	private void Update() {
+
+	private void FixedUpdate() {
         transform.eulerAngles = new Vector3(
-			0,
-			0,
+			0f,
+			0f,
 			transform.eulerAngles.z + rotSpeed
 		);
 	}

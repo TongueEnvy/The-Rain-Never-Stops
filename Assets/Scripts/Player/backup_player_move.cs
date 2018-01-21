@@ -1,4 +1,4 @@
-﻿/*using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -22,8 +22,11 @@ public class player_move: MonoBehaviour {
 	public AudioSource jump;
 	public AudioSource land;
     public GameObject theFlood;
-	public GameObject hudMenu;
-	
+	public GameObject hudMenu;	
+   [HideInInspector]public bool isDead;
+    public float deathTimer;
+    [HideInInspector] public float deathCounter;
+
 	private Rigidbody2D body;
 	private bool grounded;
 	private bool isCameraSet;
@@ -42,18 +45,21 @@ public class player_move: MonoBehaviour {
     void OnTriggerEnter2D(Collider2D collision) {
         grounded = true;
         isJumping = false;
-        
-		if(collision.gameObject.tag == "Hazard") {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+        if (collision.gameObject.tag == "Hazard") {
+            gameObject.GetComponent<scr_playerDie>().enabled = true;
         }
-		
-		for(int i = 0; i < globNumber; i++) {
-            var newGlob = Instantiate<GameObject>(slimeGlob, gameObject.transform);
-			newGlob.transform.parent = transform;
-            newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
-				Random.Range(-globSpeed, globSpeed),
-				Random.Range(0, globSpeed)
-			);
+
+        if(collision.gameObject.tag == "Ground")
+        {
+            for (int i = 0; i < globNumber; i++) {
+                var newGlob = Instantiate<GameObject>(slimeGlob, gameObject.transform);
+                newGlob.transform.parent = transform;
+                newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
+                    Random.Range(-globSpeed, globSpeed),
+                    Random.Range(0, globSpeed)
+                );
+            }
         }
 		
         if (land.isPlaying == false) {
@@ -62,16 +68,23 @@ public class player_move: MonoBehaviour {
     }
 
     void OnTriggerStay2D(Collider2D collision) {
-        grounded = true;
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = true;
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision) {
-        grounded = false;
+        if (collision.gameObject.tag == "Ground")
+        {
+            grounded = false;
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
+    void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "Hazard") {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            cam.transform.parent = null;
+            gameObject.GetComponent<scr_playerDie>().enabled = true;
         }
 
         flungCounter = 0;
@@ -138,15 +151,14 @@ public class player_move: MonoBehaviour {
 		
         else {
             cam.transform.position = new Vector3(0, transform.position.y, -10);
-				/*Vector3.MoveTowards(
+				Vector3.MoveTowards(
 					cam.transform.position,
 					new Vector3(0, transform.position.y, -10),
 					camSpeed
-				); /
+				);
         }
         
-        //theFlood.transform.position =
-		//	new Vector2(transform.position.x, theFlood.transform.position.y);
+        theFlood.transform.position = new Vector2(cam.transform.position.x, theFlood.transform.position.y);
     }
 
     void FixedUpdate()
@@ -182,4 +194,3 @@ public class player_move: MonoBehaviour {
 
     }
 }
-*/
