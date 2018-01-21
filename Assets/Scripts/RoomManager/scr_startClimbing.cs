@@ -8,9 +8,9 @@ public class scr_startClimbing: MonoBehaviour {
 	public GameObject roomManager;
 	
 	private Animator anim;
-
+	
 	// Use this for initialization
-	void Start() {
+	private void Start() {
         anim = gameObject.GetComponent<Animator>();
 	}
 
@@ -18,7 +18,7 @@ public class scr_startClimbing: MonoBehaviour {
         if(collision.gameObject == player) {
             anim.enabled = true;
             anim.Play(close.name);
-            player.GetComponent<player_move>().playerIsClimbing = true;
+            player.GetComponent<PlayerCameraControl>().SetPlayerClimbing(true);
 			roomManager.SetActive(true);
         }
     }

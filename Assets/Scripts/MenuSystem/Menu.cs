@@ -8,8 +8,7 @@
 //<T> is casts to the Menu class.
 //Where specifies that T is also supposed to represent other Menu<T>s.
 //I think I didn't do that 100% correctly so I'll need to refresh myself.
-public abstract class Menu<T>: Menu where T: Menu<T>
-{
+public abstract class Menu<T>: Menu where T: Menu<T> {
     public static T Instance { get; private set; }
 
     protected virtual void Awake() {
@@ -36,7 +35,9 @@ public abstract class Menu<T>: Menu where T: Menu<T>
 		if (Instance == null) {
 			Debug.LogErrorFormat(
 				"Trying to close menu {0} but Instance is null",
-				typeof(T));
+				typeof(T)
+			);
+			
 			return;
 		}
 
@@ -48,7 +49,7 @@ public abstract class Menu<T>: Menu where T: Menu<T>
 	}
 }
 
-public abstract class Menu : MonoBehaviour {
+public abstract class Menu: MonoBehaviour {
 	[Tooltip(
 		"Destroy the Game Object when menu is closed (reduces memory usage)")]
 	public bool DestroyWhenClosed = true;

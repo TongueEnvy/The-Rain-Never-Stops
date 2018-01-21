@@ -22,7 +22,8 @@ public class player_move: MonoBehaviour {
 	public AudioSource jump;
 	public AudioSource land;
     public GameObject theFlood;
-    [HideInInspector]public bool isDead;
+	public GameObject hudMenu;	
+   [HideInInspector]public bool isDead;
     public float deathTimer;
     [HideInInspector] public float deathCounter;
 
@@ -150,11 +151,11 @@ public class player_move: MonoBehaviour {
 		
         else {
             cam.transform.position = new Vector3(0, transform.position.y, -10);
-				/*Vector3.MoveTowards(
+				Vector3.MoveTowards(
 					cam.transform.position,
 					new Vector3(0, transform.position.y, -10),
 					camSpeed
-				);*/
+				);
         }
         
         theFlood.transform.position = new Vector2(cam.transform.position.x, theFlood.transform.position.y);

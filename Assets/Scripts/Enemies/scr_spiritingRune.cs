@@ -2,53 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class scr_spiritingRune : MonoBehaviour {
-
+public class scr_spiritingRune: MonoBehaviour {
     public GameObject weilder;
     public float launchForce;
     public bool locked;
 
-    [HideInInspector] public Vector2 launchDirection;
-
+    private Vector2 launchDirection;
     private float lockedAngle;
 
 	// Use this for initialization
-	void Start () {
-
+	void Start() {
         lockedAngle = transform.eulerAngles.z;
-
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update() {
         launchDirection = transform.up;
         launchDirection.Normalize();
 
-        if(locked == true)
-        {
-
+        if(locked == true) {
             transform.eulerAngles = new Vector3(0, 0, lockedAngle);
-
         }
-
 	}
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        
-        if (collision.tag == "Player")
-        {
-
-            if(collision.gameObject.GetComponent<player_move>() != null)
-            {
-                collision.gameObject.GetComponent<player_move>().isJumping = false;
-                collision.gameObject.GetComponent<player_move>().hasBeenFlung = true;
-                collision.gameObject.GetComponent<player_move>().flungCounter = collision.gameObject.GetComponent<player_move>().flungTimer;
+    private void OnTriggerEnter2D(Collider2D collision) {
+        if (collision.tag == "Player") {
+            if(collision.gameObject.GetComponent<player_move>() != null) {
+                collision.gameObject.GetComponent<PlayerMove>().Fling(
+					launchDirection * launchForce
+				);
             }
-
-            collision.GetComponent<Rigidbody2D>().velocity = launchDirection * launchForce;
-        }
-
+		}
     }
 }
