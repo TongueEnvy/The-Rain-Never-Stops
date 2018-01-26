@@ -45,10 +45,29 @@ public class PlayerMove: MonoBehaviour {
 	
 	//Update is called onced per frame. Critical for input!
 	private void Update() {
-		jumpPressed		=	Input.GetButtonDown("Jump");
-		jumpReleased	=	Input.GetButtonUp("Jump");
+        if ((grounded == true) && (Input.GetButtonDown("Jump")) && hasBeenFlung == false)
+        {
+            body.velocity = new Vector2(body.velocity.x, jumpForce);
+            isJumping = true;
+            jump.Play();
+            jumpCounter = jumpTimer;
+
+            for (int i = 0; i < globNumber; i++)
+            {
+                GameObject newGlob = Instantiate<GameObject>(
+                    slimeGlob, gameObject.transform
+                );
+                newGlob.transform.parent = transform;
+                newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
+                    Random.Range(-globSpeed, globSpeed),
+                    Random.Range(0, globSpeed)
+                );
+            }
+        }
+
+        jumpReleased	=	Input.GetButtonUp("Jump");
 		horzInput		=	Input.GetAxisRaw("Horizontal");
-	}
+    }
 	
 	//FixedUpdate is called 50 times per second. Critical for physics!
     private void FixedUpdate() {
@@ -83,31 +102,10 @@ public class PlayerMove: MonoBehaviour {
 					);
 				}
 			}
-			
-            else if((grounded == true) && (jumpPressed == true)) {
-                body.velocity = new Vector2(body.velocity.x, jumpForce);
-                isJumping = true;
-				grounded = false;
-                jump.Play();
-                jumpCounter = jumpTimer;
-
-                for(int i = 0; i < globNumber; i++) {
-                    GameObject newGlob = Instantiate<GameObject>(
-                        slimeGlob, gameObject.transform
-                    );
-                    newGlob.transform.parent = transform;
-                    newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
-                        Random.Range(-globSpeed, globSpeed),
-                        Random.Range(0, globSpeed)
-                    );
-                }
-            }
         }
 	}
 	
 	private void OnTriggerEnter2D(Collider2D collision) {
-        grounded = true;
-        isJumping = false;
         
 		if(collision.gameObject.tag == "Hazard") {
 			Time.timeScale = 0f;
@@ -121,22 +119,33 @@ public class PlayerMove: MonoBehaviour {
             land.Play();
         }
 
-        if (collision.tag == "Ground")
+        if (collision.tag == "Ground" || collision.tag == "Enemy")
         {
-            for (int i = 0; i < globNumber; i++)
+
+            if (grounded == false)
             {
-                var newGlob = Instantiate<GameObject>(slimeGlob, gameObject.transform);
-                newGlob.transform.parent = transform;
-                newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
-                    Random.Range(-globSpeed, globSpeed),
-                    Random.Range(0, globSpeed)
-                );
+                for (int i = 0; i < globNumber; i++)
+                {
+                    var newGlob = Instantiate<GameObject>(slimeGlob, gameObject.transform);
+                    newGlob.transform.parent = transform;
+                    newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(
+                        Random.Range(-globSpeed, globSpeed),
+                        Random.Range(0, globSpeed)
+                    );
+                }
             }
+
+            grounded = true;
+            isJumping = false;
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision) {
-        grounded = true;
+        if (collision.tag == "Ground" || collision.tag == "Enemy")
+        {
+            grounded = true;
+            isJumping = false;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision) {

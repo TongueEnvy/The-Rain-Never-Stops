@@ -13,6 +13,7 @@ public class scr_movingPlatform: MonoBehaviour {
 
     void Start() {
         destination = pointA.transform.position;
+        nextStop = pointA;
     }
 
     void OnTriggerEnter2D(Collider2D other) {
