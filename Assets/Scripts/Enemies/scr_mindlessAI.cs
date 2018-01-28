@@ -22,30 +22,6 @@ public class scr_mindlessAI: MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate() {
-        if(shotCounter < shotTimer / 4)
-        {
-
-            aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[3];
-
-        }
-        else if(shotCounter < (shotTimer / 4) * 2)
-        {
-
-            aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[2];
-
-        }
-        else if (shotCounter < (shotTimer / 4) * 3)
-        {
-
-            aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[1];
-
-        }
-        else if (shotCounter >= (shotTimer / 4) * 3)
-        {
-
-            aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[0];
-
-        }
 
         distanceFromTarget =
 			Vector2.Distance(transform.position, target.transform.position);
@@ -55,7 +31,32 @@ public class scr_mindlessAI: MonoBehaviour {
             transform.LookAt(target.transform.position);
             transform.right = transform.forward;
 
-			if(shotCounter <= 0) {
+            if (shotCounter < shotTimer / 4)
+            {
+
+                aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[3];
+
+            }
+            else if (shotCounter < (shotTimer / 4) * 2)
+            {
+
+                aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[2];
+
+            }
+            else if (shotCounter < (shotTimer / 4) * 3)
+            {
+
+                aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[1];
+
+            }
+            else if (shotCounter >= (shotTimer / 4) * 3)
+            {
+
+                aggroMeter.GetComponent<SpriteRenderer>().sprite = aggroPhases[0];
+
+            }
+
+            if (shotCounter <= 0) {
 				var newBolt = Instantiate<GameObject>(bolt, transform);
 				newBolt.transform.parent = transform.parent;
 				newBolt.transform.LookAt(target.transform.position);
