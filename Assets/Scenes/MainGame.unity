@@ -412,6 +412,26 @@ Prefab:
       propertyPath: roomManager
       value: 
       objectReference: {fileID: 1327369665}
+    - target: {fileID: 114130443171822690, guid: 5230b6b03228ddd44bcc37d7e2531ec7,
+        type: 2}
+      propertyPath: m_Text
+      value: Resume (A)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114277378984869936, guid: 5230b6b03228ddd44bcc37d7e2531ec7,
+        type: 2}
+      propertyPath: m_Text
+      value: Quit to main menu (B)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114059119285315084, guid: 5230b6b03228ddd44bcc37d7e2531ec7,
+        type: 2}
+      propertyPath: m_Text
+      value: Retry (A)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114030530874867626, guid: 5230b6b03228ddd44bcc37d7e2531ec7,
+        type: 2}
+      propertyPath: m_Text
+      value: Quit to main menu (B)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5230b6b03228ddd44bcc37d7e2531ec7, type: 2}
   m_IsPrefabParent: 0

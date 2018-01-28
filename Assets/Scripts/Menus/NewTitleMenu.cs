@@ -4,6 +4,26 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class NewTitleMenu: MonoBehaviour {
+
+    private void Update()
+    {
+
+        if (Input.GetButton("Submit"))
+        {
+
+            OnNewGamePressed();
+
+        }
+
+        if (Input.GetButton("Cancel"))
+        {
+
+            OnQuitPressed();
+
+        }
+
+    }
+
     public void OnNewGamePressed() {
 		SceneManager.LoadScene(1, LoadSceneMode.Single);
 		//Debug.Log("New Game button was pressed.");

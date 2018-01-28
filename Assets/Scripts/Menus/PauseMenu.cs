@@ -11,8 +11,22 @@ public class PauseMenu: MonoBehaviour {
 				hudMenuIndex,
 				true
 			);
-		}
-	}
+        }
+
+        if (Input.GetButton("Submit"))
+        {
+
+            OnResumePressed();
+
+        }
+
+        if (Input.GetButton("Cancel"))
+        {
+
+            OnQuitPressed();
+
+        }
+    }
 	
 	public void OnResumePressed() {
 		Time.timeScale = 1f;

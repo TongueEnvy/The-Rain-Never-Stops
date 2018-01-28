@@ -218,7 +218,7 @@ Prefab:
     - target: {fileID: 224054622031172886, guid: 0172694da38a0c447adeb73fd2af323d,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 718.5
+      value: 677
       objectReference: {fileID: 0}
     - target: {fileID: 224054622031172886, guid: 0172694da38a0c447adeb73fd2af323d,
         type: 2}
@@ -238,7 +238,7 @@ Prefab:
     - target: {fileID: 224068467364321932, guid: 0172694da38a0c447adeb73fd2af323d,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 718.5
+      value: 677
       objectReference: {fileID: 0}
     - target: {fileID: 224068467364321932, guid: 0172694da38a0c447adeb73fd2af323d,
         type: 2}
@@ -258,12 +258,22 @@ Prefab:
     - target: {fileID: 224104657917817868, guid: 0172694da38a0c447adeb73fd2af323d,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: 718.5
+      value: 677
       objectReference: {fileID: 0}
     - target: {fileID: 224104657917817868, guid: 0172694da38a0c447adeb73fd2af323d,
         type: 2}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114841333528143694, guid: 0172694da38a0c447adeb73fd2af323d,
+        type: 2}
+      propertyPath: m_Text
+      value: Play (A)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114292342881035672, guid: 0172694da38a0c447adeb73fd2af323d,
+        type: 2}
+      propertyPath: m_Text
+      value: Quit (B)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0172694da38a0c447adeb73fd2af323d, type: 2}
