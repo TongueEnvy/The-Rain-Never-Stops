@@ -9,7 +9,12 @@ public class PlayerMove: MonoBehaviour {
 	public AudioSource land;
 	public GameObject roomManager;
 	public GameObject slimeGlob;
-	public int globNumber			=	3;
+    public GameObject skull;
+    public GameObject segment0;
+    public GameObject segment1;
+    public List<GameObject> bones;
+    public List<GameObject> gibs;
+    public int globNumber			=	3;
 	public float globSpeed			=	4f;
     public float moveSpeed			=	8f;
 	public float jumpForce			=	10f;
@@ -108,8 +113,29 @@ public class PlayerMove: MonoBehaviour {
 	private void OnTriggerEnter2D(Collider2D collision) {
         
 		if(collision.gameObject.tag == "Hazard") {
-			Time.timeScale = 0f;
-			menuManager.GetComponentInParent<LiteMenuManager>().OpenMenu(
+
+            gameObject.GetComponent<PlayerMove>().enabled = false;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
+            segment1.SetActive(false);
+            segment0.SetActive(false);
+            
+
+            var newSkull = Instantiate<GameObject>(skull, null);
+            newSkull.transform.position = transform.position;
+            var newGlob = new GameObject(null);
+            for (var i = 0; i < 10; i += 1)
+            {
+
+                newGlob = Instantiate<GameObject>(gibs[Random.Range(0, gibs.Count)], null);
+                newGlob.transform.position = transform.position;
+                newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-4, 4), Random.Range(0, 4));
+
+            }
+
+            menuManager.GetComponentInParent<LiteMenuManager>().OpenMenu(
 				gameOverMenuIndex,
 				true
 			);
@@ -154,8 +180,31 @@ public class PlayerMove: MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         if(collision.gameObject.tag == "Hazard") {
-			Time.timeScale = 0f;
-			menuManager.GetComponentInParent<LiteMenuManager>().OpenMenu(
+            gameObject.GetComponent<PlayerMove>().enabled = false;
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+
+            segment1.SetActive(false);
+            segment0.SetActive(false);
+
+            if (GameObject.Find("playerSkull(Clone)"))
+            {
+                var newSkull = Instantiate<GameObject>(skull, null);
+                newSkull.transform.position = transform.position;
+            }
+
+            var newGlob = new GameObject(null);
+            for (var i = 0; i < 10; i += 1)
+            {
+
+                newGlob = Instantiate<GameObject>(gibs[Random.Range(0, gibs.Count)], null);
+                newGlob.transform.position = transform.position;
+                newGlob.GetComponent<Rigidbody2D>().velocity = new Vector2(Random.Range(-4, 4), Random.Range(0, 4));
+
+            }
+
+            menuManager.GetComponentInParent<LiteMenuManager>().OpenMenu(
 				gameOverMenuIndex,
 				true
 			);

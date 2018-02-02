@@ -125,7 +125,6 @@ GameObject:
   - component: {fileID: 61858460829301572}
   - component: {fileID: 61577734975163388}
   - component: {fileID: 50537077999729332}
-  - component: {fileID: 114721060877947522}
   - component: {fileID: 114529669581525644}
   - component: {fileID: 114929492725747220}
   m_Layer: 8
@@ -209,7 +208,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616188418037560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.15433693, y: 0.36968803, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4675026069786606}
@@ -288,7 +287,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759153011987624}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.29644203, y: 0.7435937, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4675026069786606}
@@ -346,7 +345,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1466875938312558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4430828409277380}
@@ -856,6 +855,12 @@ MonoBehaviour:
   land: {fileID: 82514201570583922}
   roomManager: {fileID: 0}
   slimeGlob: {fileID: 1149984306622630, guid: ba20448e4709366488c016c9517e8a99, type: 2}
+  skull: {fileID: 1408560223804790, guid: 74d9c9022d5f82446a634ea68b462cb6, type: 2}
+  segment0: {fileID: 1616188418037560}
+  segment1: {fileID: 1759153011987624}
+  bones: []
+  gibs:
+  - {fileID: 1149984306622630, guid: ba20448e4709366488c016c9517e8a99, type: 2}
   globNumber: 3
   globSpeed: 4
   moveSpeed: 8
@@ -865,22 +870,6 @@ MonoBehaviour:
   flungTimer: 15
   menuManager: {fileID: 0}
   gameOverMenuIndex: 2
---- !u!114 &114721060877947522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1665313012245460}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18a4149ce64479544906f4a9a7c14399, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skull: {fileID: 1408560223804790, guid: 74d9c9022d5f82446a634ea68b462cb6, type: 2}
-  bones: []
-  gibs:
-  - {fileID: 1149984306622630, guid: ba20448e4709366488c016c9517e8a99, type: 2}
-  deathTimer: 120
 --- !u!114 &114929492725747220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -958,7 +947,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1986605130
+  randomSeed: 2075211939
   InitialModule:
     serializedVersion: 3
     enabled: 1

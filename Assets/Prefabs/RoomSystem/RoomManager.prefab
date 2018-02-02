@@ -52,19 +52,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   potentialRooms:
-  - {fileID: 1128626089907888, guid: b62d1c9cbe63532428152a6f749f6397, type: 2}
-  - {fileID: 1303181747152984, guid: 90c40ad2f10cf8f48b582ca772bcbcfc, type: 2}
-  - {fileID: 1385926443646782, guid: aac5a4854206fb840b841a95ab119245, type: 2}
-  - {fileID: 1525569207739232, guid: f63d0bd68591d054bb84e1dc8996dc33, type: 2}
-  - {fileID: 1519170145787086, guid: e5d94de0654f4394a831f1a5a0be8ea3, type: 2}
-  - {fileID: 1551699490012828, guid: 91346367fc312b941884f8023427f427, type: 2}
-  - {fileID: 1129400154218900, guid: ba0bce8abbb65334893ec87a90150c1a, type: 2}
-  - {fileID: 1854942160302538, guid: 5d9b20d79aeea14459170ec87ba19aa3, type: 2}
-  - {fileID: 1557276647885814, guid: 5a9aa90734243764ba59ca307b4a163b, type: 2}
-  - {fileID: 1195049206640106, guid: bb9247cca2b9c8247b12cc439b1f84e6, type: 2}
-  - {fileID: 1187184900488280, guid: 6c2b44fe21c61cf44bbeceab4705c8d7, type: 2}
+  - {fileID: 1534910335219970, guid: a745e677ab4793d439b95a216f4ddc1e, type: 2}
+  - {fileID: 1516121861315206, guid: b62d1c9cbe63532428152a6f749f6397, type: 2}
+  - {fileID: 1894996871925332, guid: 871c2d313aa8e274ab048d8096a7799d, type: 2}
+  - {fileID: 1504120801491088, guid: 3b44e595d7d1d5b4686f42423637deb7, type: 2}
+  - {fileID: 1975206376638838, guid: 548d99cf763213847b7813129e73d173, type: 2}
+  - {fileID: 1010236406684632, guid: a2a9931a2d5903a41815f44853262478, type: 2}
   startRoom: {fileID: 0}
-  freshStartRoom: {fileID: 0}
+  freshStartRoom: {fileID: 1778929072107554, guid: be737fd49db16ce4b99dc9763025261d,
+    type: 2}
   spawn: {fileID: 0}
   player: {fileID: 0}
   flood: {fileID: 0}

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameOverMenu: MonoBehaviour {
 	public int hudMenuIndex;
 	public GameObject roomManager;
+    public GameObject player;
 
     private void Update()
     {
@@ -25,8 +26,18 @@ public class GameOverMenu: MonoBehaviour {
     }
 
     public void OnRetryPressed() {
-		Time.timeScale = 1f;
-		roomManager.GetComponent<RoomManager>().Restart();
+        player.GetComponent<PlayerMove>().enabled = true;
+        player.GetComponent<SpriteRenderer>().enabled = true;
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
+        player.GetComponent<PlayerMove>().segment0.SetActive(true);
+        player.GetComponent<PlayerMove>().segment1.SetActive(true);
+        
+
+        Destroy(GameObject.Find("playerSkull(Clone)"));
+
+        roomManager.GetComponent<RoomManager>().Restart();
 		gameObject.GetComponentInParent<LiteMenuManager>().OpenMenu(
 			hudMenuIndex,
 			true

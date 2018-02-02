@@ -27,7 +27,9 @@ public class scr_mindlessAI: MonoBehaviour {
 			Vector2.Distance(transform.position, target.transform.position);
 
         if(distanceFromTarget <= aggroRange) {
-			shotCounter -= Time.deltaTime;
+
+            aggroMeter.SetActive(true);
+            shotCounter -= Time.deltaTime;
             transform.LookAt(target.transform.position);
             transform.right = transform.forward;
 
@@ -67,7 +69,7 @@ public class scr_mindlessAI: MonoBehaviour {
 					CapsuleDirection2D.Horizontal;
 
 				shotCounter = shotTimer;
-                aggroMeter.SetActive(true);
+                
             }
         }
         else if(distanceFromTarget > aggroRange)
