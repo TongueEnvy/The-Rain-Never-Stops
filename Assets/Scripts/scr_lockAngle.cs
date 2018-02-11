@@ -17,9 +17,9 @@ public class scr_lockAngle : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        transform.parent = null;
+        //transform.parent = null;
         transform.eulerAngles = new Vector3(0, 0, lockAngle);
-        transform.parent = parentedTo.transform;
+        //transform.parent = parentedTo.transform;
 
 	}
 }

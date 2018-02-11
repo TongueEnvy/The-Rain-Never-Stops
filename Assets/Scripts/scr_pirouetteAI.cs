@@ -93,15 +93,15 @@ public class scr_pirouetteAI : MonoBehaviour {
     {
 
         anim.Play(throwRight.name);
-        var throwDirection = 45f;
-        for(var i = 0; i < 4; i += 1)
+        var throwDirection = 90f;
+        for(var i = 0; i < 8; i += 1)
         {
 
             GameObject newDaggar = Instantiate<GameObject>(daggar);
             daggar.transform.eulerAngles = new Vector3(0, 0, 0);
             daggar.transform.eulerAngles = new Vector3(0, 0, throwDirection);
             daggar.transform.position = transform.position;
-            throwDirection -= 30f;
+            throwDirection -= 15f;
 
         }
 
@@ -111,15 +111,15 @@ public class scr_pirouetteAI : MonoBehaviour {
     {
 
         anim.Play(throwLeft.name);
-        var throwDirection = 135f;
-        for (var i = 0; i < 4; i += 1)
+        var throwDirection = 90f;
+        for (var i = 0; i < 8; i += 1)
         {
 
             GameObject newDaggar = Instantiate<GameObject>(daggar);
             daggar.transform.eulerAngles = new Vector3(0, 0, 0);
             daggar.transform.eulerAngles = new Vector3(0, 0, throwDirection);
             daggar.transform.position = transform.position;
-            throwDirection += 30f;
+            throwDirection += 15f;
 
         }
 
@@ -130,14 +130,14 @@ public class scr_pirouetteAI : MonoBehaviour {
 
         anim.Play(throwUpward.name);
         var throwDirection = 0f;
-        for (var i = 0; i < 8; i += 1)
+        for (var i = 0; i < 16; i += 1)
         {
 
             GameObject newDaggar = Instantiate<GameObject>(daggar);
             daggar.transform.eulerAngles = new Vector3(0, 0, 0);
             daggar.transform.eulerAngles = new Vector3(0, 0, throwDirection);
             daggar.transform.position = transform.position;
-            throwDirection += (180 / 7);
+            throwDirection += (180 / 15);
 
         }
 
